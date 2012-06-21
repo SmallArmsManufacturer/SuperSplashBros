@@ -1,10 +1,21 @@
 #include <GLUT/glut.h>
 #include <OpenGL/gl.h>
+#include <sys/time.h>
+#include <iostream>
+
+using namespace std;
 
 namespace
 {
 	// The default window size
 	const int WIDTH = 1024, HEIGHT = 768;
+	
+	double getTime()
+	{
+		timeval t;
+		gettimeofday(&t, NULL);
+		return t.tv_sec + t.tv_usec / 1000000.0;
+	}
 
 	void init()
 	{
@@ -30,6 +41,25 @@ namespace
 
 	void display()
 	{
+		// Calculate the elapsed time since the last frame in seconds
+		static double prevTime = getTime();
+		double dt = getTime() - prevTime;
+		prevTime += dt;
+		
+		// Calculate the framerate
+		static double elapsedTime;
+		static int numFrames;
+		elapsedTime += dt;
+		numFrames++;
+		
+		// Print the framerate to standard output every second
+		if (elapsedTime > 1)
+		{
+			cout << numFrames << endl;
+			elapsedTime--;
+			numFrames = 0;
+		}
+		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT);
 		
