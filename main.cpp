@@ -3,12 +3,18 @@
 #include <sys/time.h>
 #include <iostream>
 
+#include "entity.h"
+#include "batman.h"
+#include "scarecrow.h"
+
 using namespace std;
 
 namespace
 {
 	// The default window size
 	const int WIDTH = 1024, HEIGHT = 768;
+	
+	Entity box;
 	
 	double getTime()
 	{
@@ -26,6 +32,10 @@ namespace
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glTranslated(0.0, 0.0, -10.0);
+		
+		Batman *batman = box.addComponent<Batman>();
+		batman->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
+		box.addComponent<Scarecrow>();
 	}
 
 	void reshape(int width, int height)
@@ -45,6 +55,7 @@ namespace
 		static double prevTime = getTime();
 		double dt = getTime() - prevTime;
 		prevTime += dt;
+		Batman::step(dt);
 		
 		// Calculate the framerate
 		static double elapsedTime;
@@ -64,8 +75,7 @@ namespace
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// Draw a white, solid, 1x1x1 meter cube at the origin
-		glColor3d(1.0, 1.0, 1.0);
-		glutSolidCube(1.0);
+		box.getComponent<Scarecrow>()->render();
 
 		// Swap the buffers
 		glFlush();
