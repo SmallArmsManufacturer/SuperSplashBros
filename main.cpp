@@ -18,6 +18,7 @@
 #include "renderingcomponent.h"
 #include "box.h"
 #include "tile.h"
+#include "player.h";
 
 #ifdef _WIN32
 	//  The number of frames
@@ -35,7 +36,7 @@
 	void calculateFPS();
 	void setVSync(int interval);
 #endif
-
+	void processSpecialKeys(int key, int x, int y);
 using namespace std;
 
 namespace
@@ -45,6 +46,7 @@ namespace
 	
 	Box box;
 	Tile tile;
+	Player player;
 	#ifndef _WIN32
 		double getTime()
 		{
@@ -63,6 +65,7 @@ namespace
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glTranslated(0.0, 0.0, -10.0);
+		glutSpecialFunc(processSpecialKeys);
 		
 		#ifdef _WIN32
 			setVSync(1);
@@ -101,6 +104,7 @@ namespace
 		// Draw a white, solid, 1x1x1 meter cube at the origin
 		box.getComponent<RenderingComponent>()->render();
 		tile.getComponent<RenderingComponent>()->render();
+		player.getComponent<RenderingComponent>()->render();
 
 		// Swap the buffers
 		glFlush();
@@ -162,7 +166,12 @@ int main(int argc, char *argv[])
 	reshape(WIDTH, HEIGHT);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	box.init(0, 0);
+	box.init(-1.5, 0);
 	tile.init(0,-2);
+	player.init(0,0);
 	glutMainLoop();
+}
+
+void processSpecialKeys(int key, int x, int y){
+	player.processSpecialKeys(key, x, y);
 }

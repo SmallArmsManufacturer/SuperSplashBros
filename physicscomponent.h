@@ -14,6 +14,7 @@ class PhysicsComponent : public Component
 		float getHeight();
 		float getAngle();
 		static void step(double dt);
+		b2Body* getBody();
 	
 	private:
 		b2Body *body;

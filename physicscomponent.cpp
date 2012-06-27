@@ -64,3 +64,7 @@ float PhysicsComponent::getAngle()
 {
 	return body->GetAngle() * 180.0f / M_PI;
 }
+
+b2Body* PhysicsComponent::getBody(){
+	return body;
+}
