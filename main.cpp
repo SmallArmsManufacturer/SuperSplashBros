@@ -6,6 +6,7 @@
 #include "entity.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
+#include "box.h"
 
 using namespace std;
 
@@ -13,8 +14,8 @@ namespace
 {
 	// The default window size
 	const int WIDTH = 1024, HEIGHT = 768;
-	
-	Entity box;
+	           
+	Box box = Box();
 	
 	double getTime()
 	{
@@ -32,10 +33,6 @@ namespace
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glTranslated(0.0, 0.0, -10.0);
-		
-		PhysicsComponent *physicsComponent = box.addComponent<PhysicsComponent>();
-		physicsComponent->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
-		box.addComponent<RenderingComponent>();
 	}
 
 	void reshape(int width, int height)
