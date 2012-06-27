@@ -6,6 +6,6 @@ class Box : public Entity
 
 	public:
 		
-		void init();
+		void init(float x, float y);
 	
 };

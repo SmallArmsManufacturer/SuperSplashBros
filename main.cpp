@@ -159,6 +159,6 @@ int main(int argc, char *argv[])
 	reshape(WIDTH, HEIGHT);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	box.init();	
+	box.init(0, 0);	
 	glutMainLoop();
 }

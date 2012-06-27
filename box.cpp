@@ -4,10 +4,9 @@
 #include "renderingcomponent.h"
 
 
-void Box::init()
+void Box::init(float x, float y)
 {
-	Entity();
 	PhysicsComponent *physicsComponent = Entity::addComponent<PhysicsComponent>();
-	physicsComponent->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
+	physicsComponent->init(x, y, 1.0f, 1.0f, true, true);
 	Entity::addComponent<RenderingComponent>();
 }
