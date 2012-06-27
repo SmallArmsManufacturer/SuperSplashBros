@@ -1,7 +1,5 @@
 #include "inputcomponent.h"
 
-#include "player.h"
-
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
 #ifdef __APPLE__
