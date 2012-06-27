@@ -26,6 +26,7 @@ class B : public Component
 		}
 };
 
+/*
 int main(int argc, const char *argv[])
 {
 	Entity e;
@@ -34,3 +35,4 @@ int main(int argc, const char *argv[])
 	e.getComponent<A>()->cake();
 	e.getComponent<B>()->pie();
 }
+*/

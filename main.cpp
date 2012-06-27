@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include "entity.h"
-#include "batman.h"
-#include "scarecrow.h"
+#include "physicscomponent.h"
+#include "renderingcomponent.h"
 
 using namespace std;
 
@@ -33,9 +33,9 @@ namespace
 		glLoadIdentity();
 		glTranslated(0.0, 0.0, -10.0);
 		
-		Batman *batman = box.addComponent<Batman>();
-		batman->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
-		box.addComponent<Scarecrow>();
+		PhysicsComponent *physicsComponent = box.addComponent<PhysicsComponent>();
+		physicsComponent->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
+		box.addComponent<RenderingComponent>();
 	}
 
 	void reshape(int width, int height)
@@ -55,7 +55,7 @@ namespace
 		static double prevTime = getTime();
 		double dt = getTime() - prevTime;
 		prevTime += dt;
-		Batman::step(dt);
+		PhysicsComponent::step(dt);
 		
 		// Calculate the framerate
 		static double elapsedTime;
@@ -75,7 +75,7 @@ namespace
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// Draw a white, solid, 1x1x1 meter cube at the origin
-		box.getComponent<Scarecrow>()->render();
+		box.getComponent<RenderingComponent>()->render();
 
 		// Swap the buffers
 		glFlush();

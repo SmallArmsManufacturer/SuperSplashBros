@@ -1,4 +1,4 @@
-#include "batman.h"
+#include "physicscomponent.h"
 
 #include <Box2D/Box2D.h>
 
@@ -8,12 +8,12 @@ namespace
 	b2World world(b2Vec2(0.0f, -gravity));
 }
 
-void Batman::step(double dt)
+void PhysicsComponent::step(double dt)
 {
 	world.Step(dt, 8, 3);
 }
 
-void Batman::init(float x, float y, float width, float height, bool dynamic, bool rotatable)
+void PhysicsComponent::init(float x, float y, float width, float height, bool dynamic, bool rotatable)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
@@ -33,17 +33,17 @@ void Batman::init(float x, float y, float width, float height, bool dynamic, boo
 	body->CreateFixture(&fixtureDef);
 }
 
-float Batman::getX()
+float PhysicsComponent::getX()
 {
 	return body->GetPosition().x;
 }
 
-float Batman::getY()
+float PhysicsComponent::getY()
 {
 	return body->GetPosition().y;
 }
 
-float Batman::getAngle()
+float PhysicsComponent::getAngle()
 {
 	return body->GetAngle() * 180.0f / M_PI;
 }

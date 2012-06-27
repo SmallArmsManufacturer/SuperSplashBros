@@ -4,7 +4,7 @@
 
 class b2Body;
 
-class Batman : public Component
+class PhysicsComponent : public Component
 {
 	public:
 		void init(float x, float y, float width, float height, bool dynamic, bool rotatable);

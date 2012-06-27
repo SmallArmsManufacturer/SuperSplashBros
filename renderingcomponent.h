@@ -2,7 +2,7 @@
 
 #include "component.h"
 
-class Scarecrow : public Component
+class RenderingComponent : public Component
 {
 	public:
 		void render();
