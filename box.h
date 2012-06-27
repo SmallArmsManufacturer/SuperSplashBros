@@ -5,7 +5,7 @@ class Box : public Entity
 {
 
 	public:
-	
-		Box();
+		
+		void init();
 	
 };

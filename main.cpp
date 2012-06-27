@@ -16,6 +16,7 @@
 #include "entity.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
+#include "box.h"
 
 #ifdef _WIN32
 	//  The number of frames
@@ -41,7 +42,7 @@ namespace
 	// The default window size
 	const int WIDTH = 1024, HEIGHT = 768;
 	
-	Entity box;
+	Box box;
 	#ifndef _WIN32
 		double getTime()
 		{
@@ -61,9 +62,6 @@ namespace
 		glLoadIdentity();
 		glTranslated(0.0, 0.0, -10.0);
 		
-		PhysicsComponent *physicsComponent = box.addComponent<PhysicsComponent>();
-		physicsComponent->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
-		box.addComponent<RenderingComponent>();
 		#ifdef _WIN32
 			setVSync(1);
 		#endif
@@ -161,5 +159,6 @@ int main(int argc, char *argv[])
 	reshape(WIDTH, HEIGHT);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
+	box.init();	
 	glutMainLoop();
 }

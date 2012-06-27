@@ -4,7 +4,7 @@
 #include "renderingcomponent.h"
 
 
-Box::Box()
+void Box::init()
 {
 	Entity();
 	PhysicsComponent *physicsComponent = Entity::addComponent<PhysicsComponent>();
