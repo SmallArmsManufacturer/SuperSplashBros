@@ -1,11 +1,38 @@
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <sys/time.h>
+#ifdef __APPLE__
+	#include <GLUT/glut.h>
+	#include <OpenGL/gl.h>
+	#include <sys/time.h>
+#else
+	#ifdef _WIN32
+		#include <Windows.h>
+	#else
+		#include <sys/time.h>
+	#endif
+	#include <GL/glut.h>
+	#include <GL/GL.h>
+#endif
 #include <iostream>
 
 #include "entity.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
+
+#ifdef _WIN32
+	//  The number of frames
+	int frameCount = 0;
+
+	//  Number of frames per second
+	float fps = 60;
+	int currentTime = 0;
+	int previousTime = 0;
+	typedef BOOL (APIENTRY *PFNWGLSWAPINTERVALFARPROC)( int );
+	typedef int (*PFNWGLEXTGETSWAPINTERVALPROC) (void);
+
+	PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT = 0;
+	PFNWGLEXTGETSWAPINTERVALPROC wglGetSwapIntervalEXT = 0;
+	void calculateFPS();
+	void setVSync(int interval);
+#endif
 
 using namespace std;
 
@@ -15,13 +42,14 @@ namespace
 	const int WIDTH = 1024, HEIGHT = 768;
 	
 	Entity box;
-	
-	double getTime()
-	{
-		timeval t;
-		gettimeofday(&t, NULL);
-		return t.tv_sec + t.tv_usec / 1000000.0;
-	}
+	#ifndef _WIN32
+		double getTime()
+		{
+			timeval t;
+			gettimeofday(&t, NULL);
+			return t.tv_sec + t.tv_usec / 1000000.0;
+		}
+	#endif
 
 	void init()
 	{
@@ -36,6 +64,9 @@ namespace
 		PhysicsComponent *physicsComponent = box.addComponent<PhysicsComponent>();
 		physicsComponent->init(0.0f, 0.0f, 1.0f, 1.0f, true, true);
 		box.addComponent<RenderingComponent>();
+		#ifdef _WIN32
+			setVSync(1);
+		#endif
 	}
 
 	void reshape(int width, int height)
@@ -51,25 +82,19 @@ namespace
 
 	void display()
 	{
+#ifndef _WIN32
 		// Calculate the elapsed time since the last frame in seconds
 		static double prevTime = getTime();
 		double dt = getTime() - prevTime;
 		prevTime += dt;
+
+#else
+		calculateFPS();
+		double dt = 1/fps;
+#endif
+		calculateFPS();
 		PhysicsComponent::step(dt);
 		
-		// Calculate the framerate
-		static double elapsedTime;
-		static int numFrames;
-		elapsedTime += dt;
-		numFrames++;
-		
-		// Print the framerate to standard output every second
-		if (elapsedTime > 1)
-		{
-			cout << numFrames << endl;
-			elapsedTime--;
-			numFrames = 0;
-		}
 		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -85,6 +110,44 @@ namespace
 		glutPostRedisplay();
 	}
 }
+#ifdef _WIN32
+	void calculateFPS()
+	{
+		//  Increase frame count
+		frameCount++;
+
+		//  Get the number of milliseconds since glutInit called 
+		currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+		//  Calculate time passed
+		int timeInterval = currentTime - previousTime;
+
+		if(timeInterval > 1000)
+		{
+			//  calculate the number of frames per second
+			fps = frameCount / (timeInterval / 1000.0f);
+			cout << fps << endl;
+
+			//  Set time
+			previousTime = currentTime;
+			//  Reset frame count
+			frameCount = 0;
+		}
+	}
+
+	void setVSync(int interval)
+	{
+		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
+		wglGetSwapIntervalEXT = (PFNWGLEXTGETSWAPINTERVALPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
+
+		int a = -1;
+		if( wglSwapIntervalEXT ){
+			wglSwapIntervalEXT(interval);
+			a = wglGetSwapIntervalEXT();
+		}
+		std::cout << a << std::endl;
+	}
+#endif
 
 int main(int argc, char *argv[])
 {
