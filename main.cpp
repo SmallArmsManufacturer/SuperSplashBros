@@ -92,7 +92,6 @@ namespace
 		calculateFPS();
 		double dt = 1/fps;
 #endif
-		calculateFPS();
 		PhysicsComponent::step(dt);
 		
 		
