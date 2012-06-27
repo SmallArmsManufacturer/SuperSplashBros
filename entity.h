@@ -2,7 +2,6 @@
 
 #include <map>
 #include <typeinfo>
-
 class Component;
 
 class Entity

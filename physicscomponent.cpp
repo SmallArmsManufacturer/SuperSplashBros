@@ -36,6 +36,7 @@ void PhysicsComponent::init(float x, float y, float width, float height, bool dy
 	fixtureDef.density = 0.2;
 	fixtureDef.friction = 0.3f;
 	fixtureDef.restitution = 1.0f;
+
 	body->CreateFixture(&fixtureDef);
 }
 

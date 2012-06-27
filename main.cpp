@@ -16,9 +16,8 @@
 #include "entity.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
-#include "box.h"
-#include "tile.h"
-#include "player.h";
+#include "inputcomponent.h"
+#include "entityfactory.h"
 
 #ifdef _WIN32
 	//  The number of frames
@@ -44,9 +43,9 @@ namespace
 	// The default window size
 	const int WIDTH = 1024, HEIGHT = 768;
 	
-	Box box;
-	Tile tile;
-	Player player;
+	Entity *box;
+	Entity *tile;
+	Entity *player;
 	#ifndef _WIN32
 		double getTime()
 		{
@@ -85,6 +84,7 @@ namespace
 
 	void display()
 	{
+
 #ifndef _WIN32
 		// Calculate the elapsed time since the last frame in seconds
 		static double prevTime = getTime();
@@ -100,18 +100,17 @@ namespace
 		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		// Draw a white, solid, 1x1x1 meter cube at the origin
-		box.getComponent<RenderingComponent>()->render();
-		tile.getComponent<RenderingComponent>()->render();
-		player.getComponent<RenderingComponent>()->render();
 
+		box->getComponent<RenderingComponent>()->render();
+		tile->getComponent<RenderingComponent>()->render();
+		player->getComponent<RenderingComponent>()->render();
 		// Swap the buffers
 		glFlush();
 		glutSwapBuffers();
 
 		// Tell GLUT to re-run the display func as soon as possible
 		glutPostRedisplay();
+		
 	}
 }
 #ifdef _WIN32
@@ -166,12 +165,14 @@ int main(int argc, char *argv[])
 	reshape(WIDTH, HEIGHT);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	box.init(-1.5, 0);
-	tile.init(0,-2);
-	player.init(0,0);
+	
+	box = EntityFactory::createBox(-1.5, 0);
+	tile = EntityFactory::createTile(0,-2);
+	player = EntityFactory::createPlayer(0,0);
+	
 	glutMainLoop();
 }
 
 void processSpecialKeys(int key, int x, int y){
-	player.processSpecialKeys(key, x, y);
+	player->getComponent<InputComponent>()->processSpecialKeys(key, x, y);
 }
