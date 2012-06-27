@@ -17,6 +17,7 @@
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
 #include "box.h"
+#include "tile.h"
 
 #ifdef _WIN32
 	//  The number of frames
@@ -43,6 +44,7 @@ namespace
 	const int WIDTH = 1024, HEIGHT = 768;
 	
 	Box box;
+	Tile tile;
 	#ifndef _WIN32
 		double getTime()
 		{
@@ -98,6 +100,7 @@ namespace
 		
 		// Draw a white, solid, 1x1x1 meter cube at the origin
 		box.getComponent<RenderingComponent>()->render();
+		tile.getComponent<RenderingComponent>()->render();
 
 		// Swap the buffers
 		glFlush();
@@ -159,6 +162,7 @@ int main(int argc, char *argv[])
 	reshape(WIDTH, HEIGHT);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	box.init(0, 0);	
+	box.init(0, 0);
+	tile.init(0,-2);
 	glutMainLoop();
 }

@@ -18,6 +18,9 @@ void PhysicsComponent::step(double dt)
 
 void PhysicsComponent::init(float x, float y, float width, float height, bool dynamic, bool rotatable)
 {
+	this->width = width;
+	this->height = height;
+	
 	b2BodyDef bodyDef;
 	bodyDef.type = dynamic ? b2_dynamicBody : b2_staticBody;
 	bodyDef.fixedRotation = !rotatable;
@@ -45,6 +48,17 @@ float PhysicsComponent::getY()
 {
 	return body->GetPosition().y;
 }
+
+float PhysicsComponent::getWidth()
+{
+	return width;
+}
+
+float PhysicsComponent::getHeight()
+{
+	return height;
+}
+
 
 float PhysicsComponent::getAngle()
 {
