@@ -13,6 +13,7 @@ class PhysicsComponent : public Component
 		float getWidth();
 		float getHeight();
 		float getAngle();
+		void applyForce(float x, float y);
 		static void step(double dt);
 		b2Body* getBody();
 	

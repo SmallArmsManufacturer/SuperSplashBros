@@ -35,7 +35,7 @@ void PhysicsComponent::init(float x, float y, float width, float height, bool dy
 	fixtureDef.shape = &poly;
 	fixtureDef.density = 0.2;
 	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 1.0f;
+	fixtureDef.restitution = 0.3f;
 
 	body->CreateFixture(&fixtureDef);
 }
@@ -68,4 +68,9 @@ float PhysicsComponent::getAngle()
 
 b2Body* PhysicsComponent::getBody(){
 	return body;
+}
+
+void PhysicsComponent::applyForce(float x, float y)
+{
+	getBody()->ApplyLinearImpulse(b2Vec2(x, y), getBody()->GetWorldCenter());
 }

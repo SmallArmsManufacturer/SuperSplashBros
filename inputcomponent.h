@@ -5,5 +5,11 @@
 class InputComponent : public Component
 {
 	public:
-		void processSpecialKeys(int key, int x, int y);
+		InputComponent();
+		void keyDown(unsigned char key, int x, int y);
+		void keyUp(unsigned char key, int x, int y);
+		void update(double dt);
+	
+	private:
+		int direction;
 };
