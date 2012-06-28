@@ -1,19 +1,8 @@
 #include "inputcomponent.h"
 
+#include "common.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#include <sys/time.h>
-#else
-#ifdef _WIN32
-#include <Windows.h>
-#include <GL/glut.h>
-#endif
-#endif
-
-#include <Box2D/Box2D.h>
-#include "physicscomponent.h"
 #include "entity.h"
 
 namespace

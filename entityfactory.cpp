@@ -1,5 +1,6 @@
 #include "entityfactory.h"
 
+#include "entity.h"
 #include "renderingcomponent.h"
 #include "physicscomponent.h"
 #include "inputcomponent.h"

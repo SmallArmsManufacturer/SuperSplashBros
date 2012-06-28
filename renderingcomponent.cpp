@@ -1,16 +1,6 @@
 #include "renderingcomponent.h"
 
-#ifdef __APPLE__
-	#include <OpenGL/gl.h>
-	#include <GLUT/glut.h>
-#else
-	#ifdef _WIN32
-		#include <Windows.h>
-	#endif
-	#include <GL/GL.h>
-	#include <GL/glut.h>
-#endif
-
+#include "common.h"
 #include "physicscomponent.h"
 #include "entity.h"
 

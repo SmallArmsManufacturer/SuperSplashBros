@@ -9,3 +9,7 @@
 
 // Box2D
 #include <Box2D/Box2D.h>
+
+// Math stuff
+#define _USE_MATH_DEFINES
+#include <cmath>

@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "common.h"
+#include "entity.h"
 #include "entityfactory.h"
 #include "renderingcomponent.h"
 #include "physicscomponent.h"

@@ -1,4 +1,4 @@
-#include "entity.h"
+class Entity;
 
 namespace EntityFactory
 {
