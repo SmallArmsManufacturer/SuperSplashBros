@@ -4,6 +4,15 @@
 #include "physicscomponent.h"
 #include "entity.h"
 
+void RenderingComponent::init(double r, double g, double b, double a)
+{
+	this->r = r;
+	this->g = g;
+	this->b = b;
+	this->a = a;
+}
+
+
 void RenderingComponent::render()
 {
 
@@ -13,7 +22,7 @@ void RenderingComponent::render()
 		PhysicsComponent *physicsComponent = entity->getComponent<PhysicsComponent>();
 		glTranslatef(physicsComponent->getX(), physicsComponent->getY(), 0.0f);
 		glRotatef(physicsComponent->getAngle(), 0.0f, 0.0f, 1.0f);
-		glColor3d(1.0, 1.0, 1.0);
+		glColor4d(r, g, b, a);
 		glScalef(physicsComponent->getWidth(), physicsComponent->getHeight(), 1);
 		glutSolidCube(1.0);
 	}

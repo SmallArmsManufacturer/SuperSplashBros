@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 {
 	// Create the main window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA | GLUT_RGBA);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("OpenGL demo");
 	
@@ -65,7 +65,8 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(keyUp);
 	reshape(WIDTH, HEIGHT);
 	glutIgnoreKeyRepeat(1);
-	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Enter main loop
 	glutMainLoop();
 }
