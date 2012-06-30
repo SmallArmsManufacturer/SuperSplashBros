@@ -6,6 +6,7 @@
 #include "renderingcomponent.h"
 #include "physicscomponent.h"
 #include "inputcomponent.h"
+#include "emittercomponent.h"
 
 Game::Game()
 {
@@ -19,7 +20,7 @@ Game::Game()
 	
 	box = EntityFactory::createBox(-1.5, 0);
 	tile = EntityFactory::createTile(0,-2);
-	player = EntityFactory::createPlayer(0,0);
+	player = EntityFactory::createPlayer(0,0, 0, 0, 0);
 }
 
 Game::~Game()
@@ -44,6 +45,7 @@ void Game::update(double dt)
 {
 	PhysicsComponent::step(dt);
 	player->getComponent<InputComponent>()->update(dt);
+	player->getComponent<EmitterComponent>()->update(dt);
 }
 
 void Game::render()
@@ -68,4 +70,9 @@ void Game::keyDown(unsigned char key, int x, int y)
 void Game::keyUp(unsigned char key, int x, int y)
 {
 	player->getComponent<InputComponent>()->keyUp(key, x, y);
+}
+
+void Game::mouseClick(int button, int state, int x, int y)
+{
+	player->getComponent<InputComponent>()->mouseClick(button, state, x, y);
 }

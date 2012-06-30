@@ -4,6 +4,7 @@
 #include "renderingcomponent.h"
 #include "physicscomponent.h"
 #include "inputcomponent.h"
+#include "emittercomponent.h"
 
 Entity *EntityFactory::createBox(float x, float y)
 {
@@ -25,13 +26,14 @@ Entity *EntityFactory::createTile(float x, float y)
 	return tile;
 }
 
-Entity *EntityFactory::createPlayer(float x, float y)
+Entity *EntityFactory::createPlayer(float x, float y, float r, float g, float b)
 {
 	Entity *player = new Entity();
 	PhysicsComponent *physicsComponent = player->addComponent<PhysicsComponent>();
 	physicsComponent->init(x, y, 0.8f, 2.0f, true, false);
 	RenderingComponent *renderingComponent = player->addComponent<RenderingComponent>();
-	renderingComponent->init(1.0, 1.0, 0.0, 0.4);
+	renderingComponent->init(r, g, b, 0.5);
+	player->addComponent<EmitterComponent>();
 	player->addComponent<InputComponent>();
 	return player;
 }

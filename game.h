@@ -14,6 +14,7 @@ class Game
 		void render();
 		void keyDown(unsigned char key, int x, int y);
 		void keyUp(unsigned char key, int x, int y);
+		void mouseClick(int button, int state, int x, int y);
 	
 	private:
 		Entity *box, *tile, *player;

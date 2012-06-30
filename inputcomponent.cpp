@@ -3,7 +3,11 @@
 #include "common.h"
 #include "physicscomponent.h"
 #include "renderingcomponent.h"
+#include "emittercomponent.h"
 #include "entity.h"
+
+#include <math.h>
+
 
 namespace
 {
@@ -34,6 +38,24 @@ void InputComponent::keyUp(unsigned char key, int x, int y)
 		direction++;
 	else if (key == 'd')
 		direction--;
+}
+
+void InputComponent::mouseClick(int button, int state, int x, int y)
+{
+	double tempX = x - entity->getComponent<PhysicsComponent>()->getX();
+	double tempY = y - entity->getComponent<PhysicsComponent>()->getY();
+
+	//TODO:work out angle
+	
+	//entity->getComponent<EmitterComponent>()->setAngle(angle);
+
+	if (button == GLUT_LEFT_BUTTON)
+	{
+		if (state == GLUT_DOWN)
+			entity->getComponent<EmitterComponent>()->turnOn();
+		else
+			entity->getComponent<EmitterComponent>()->turnOff();
+	}
 }
 
 void InputComponent::update(double dt)
