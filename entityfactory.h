@@ -1,4 +1,5 @@
 class Entity;
+class Level;
 
 namespace EntityFactory
 {
@@ -7,5 +8,5 @@ namespace EntityFactory
 	Entity *createTile(float x, float y);
 	
 	Entity *createPlayer(float x, float y, float r, float g, float b);
-	
+		
 }

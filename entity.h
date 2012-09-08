@@ -2,15 +2,24 @@
 
 #include <map>
 #include <typeinfo>
+
 class Component;
+class Level;
+
 
 class Entity
 {
+	friend class Level;
+
 	public:
 		template <typename T> T *addComponent();
 		template <typename T> T *getComponent();
 		template <typename T> void removeComponent();
+		Level *getLevel();
 		~Entity();
+	
+	protected:
+		Level *level;
 	
 	private:
 		std::map<const std::type_info *, Component *> components;

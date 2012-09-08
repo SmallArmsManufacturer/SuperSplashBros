@@ -8,6 +8,8 @@
 
 #include <math.h>
 
+#define _USE_MATH_DEFINES
+
 
 namespace
 {
@@ -40,14 +42,22 @@ void InputComponent::keyUp(unsigned char key, int x, int y)
 		direction--;
 }
 
-void InputComponent::mouseClick(int button, int state, int x, int y)
+void InputComponent::mouseClick(int button, int state, double x, double y, double playerX, double playerY)
 {
-	double tempX = x - entity->getComponent<PhysicsComponent>()->getX();
-	double tempY = y - entity->getComponent<PhysicsComponent>()->getY();
-
-	//TODO:work out angle
+	double tempX = x - playerX;
+	double tempY = y - playerY;
 	
-	//entity->getComponent<EmitterComponent>()->setAngle(angle);
+	double angle = atan (tempY / tempX);
+
+	
+	if (tempX < 0 && tempY > 0)
+		angle += M_PI;
+	else if (tempX < 0 && tempY < 0)
+		angle += M_PI;
+	else if (tempX > 0 && tempY < 0)
+		angle += 2.0 * M_PI;
+	
+	 entity->getComponent<EmitterComponent>()->setAngle(angle);
 
 	if (button == GLUT_LEFT_BUTTON)
 	{

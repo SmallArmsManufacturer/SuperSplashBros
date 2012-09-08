@@ -8,7 +8,7 @@ class InputComponent : public Component
 		InputComponent();
 		void keyDown(unsigned char key, int x, int y);
 		void keyUp(unsigned char key, int x, int y);
-		void mouseClick(int button, int state, int x, int y);
+		void mouseClick(int button, int state, double x, double y, double playerX, double playerY);
 		void update(double dt);
 	
 	private:

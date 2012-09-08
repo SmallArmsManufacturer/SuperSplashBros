@@ -3,6 +3,7 @@
 #include <string>
 
 class Entity;
+class Level;
 
 class Game
 {
@@ -17,5 +18,6 @@ class Game
 		void mouseClick(int button, int state, int x, int y);
 	
 	private:
-		Entity *box, *tile, *player;
+		Level *level;
+		Entity *player;
 };
