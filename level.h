@@ -15,5 +15,6 @@ class Level
 		
 	private:
 		vector<Entity *> entities;
+		vector<Entity *> newEntities;
 };
 

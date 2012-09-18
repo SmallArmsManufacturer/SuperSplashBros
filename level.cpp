@@ -9,7 +9,7 @@
 
 void Level::addEntity(Entity *entity)
 {
-	entities.push_back(entity);
+	newEntities.push_back(entity);
 	entity->level = this;
 }
 
@@ -22,6 +22,9 @@ void Level::update(double dt)
 		if ((*it)->getComponent<EmitterComponent>() != NULL)
 			(*it)->getComponent<EmitterComponent>()->update(dt);
 	}
+	
+	entities.insert( entities.end(), newEntities.begin(), newEntities.end() );
+	newEntities.clear();
 }
 
 

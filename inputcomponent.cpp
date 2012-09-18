@@ -7,7 +7,7 @@
 #include "entity.h"
 
 #include <math.h>
-
+#include <iostream>
 #define _USE_MATH_DEFINES
 
 
@@ -45,20 +45,13 @@ void InputComponent::keyUp(unsigned char key, int x, int y)
 void InputComponent::mouseClick(int button, int state, double x, double y, double playerX, double playerY)
 {
 	double tempX = x - playerX;
-	double tempY = y - playerY;
-	
-	double angle = atan (tempY / tempX);
+	double tempY = -(y - playerY);
 
+	double cake = sqrt(tempX * tempX + tempY * tempY) * 5;
+	tempX /= cake;
+	tempY /= cake;
+	entity->getComponent<EmitterComponent>()->setEmissionVector(tempX, tempY);
 	
-	if (tempX < 0 && tempY > 0)
-		angle += M_PI;
-	else if (tempX < 0 && tempY < 0)
-		angle += M_PI;
-	else if (tempX > 0 && tempY < 0)
-		angle += 2.0 * M_PI;
-	
-	 entity->getComponent<EmitterComponent>()->setAngle(angle);
-
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (state == GLUT_DOWN)

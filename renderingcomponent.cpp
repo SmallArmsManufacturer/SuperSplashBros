@@ -23,8 +23,16 @@ void RenderingComponent::render()
 		glTranslatef(physicsComponent->getX(), physicsComponent->getY(), 0.0f);
 		glRotatef(physicsComponent->getAngle(), 0.0f, 0.0f, 1.0f);
 		glColor4d(r, g, b, a);
-		glScalef(physicsComponent->getWidth(), physicsComponent->getHeight(), 1);
-		glutSolidCube(1.0);
+		if (physicsComponent->isCircle())
+		{
+			glScalef(physicsComponent->getWidth(), physicsComponent->getHeight(), physicsComponent->getHeight());
+			glutSolidSphere(1.0, 10, 10);
+		}
+		else
+		{
+			glScalef(physicsComponent->getWidth(), physicsComponent->getHeight(), 1);
+			glutSolidCube(1.0);
+		}
 	}
 	glPopMatrix();
 }

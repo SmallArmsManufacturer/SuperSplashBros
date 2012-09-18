@@ -8,12 +8,14 @@ class EmitterComponent : public Component
 	
 	public:
 		void init();
-		void setAngle(float angle);
 		void turnOn();
 		void turnOff();
 		void update(double dt);
-
+		void setEmissionVector(double x, double y);
+	
 	private:
-		double angle;
 		bool on;
+		double rate;
+		double count;
+		double x, y; 
 };

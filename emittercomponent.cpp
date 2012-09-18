@@ -6,15 +6,16 @@
 #include "physicscomponent.h"
 #include "level.h"
 
+#include <iostream>
+
 void EmitterComponent::init()
 {
 	on = false;
+	rate = 0.02;
+	count = 0;
 }
 
-void EmitterComponent::setAngle(float angle)
-{
-	this->angle = angle;
-}
+
 
 void EmitterComponent::turnOn()
 {
@@ -26,15 +27,30 @@ void EmitterComponent::turnOff()
 	on = false;
 }
 
-void EmitterComponent::update(double dt)
+void EmitterComponent::setEmissionVector(double x, double y)
 {
-	if (on)
+	this->x = x;
+	this->y = y;
+}
+
+
+void EmitterComponent::update(double dt)
+{	
+
+	if (count > rate)
 	{
-		/*Entity *water = new Entity(); 
-		PhysicsComponent *physicsComponent = water->addComponent<PhysicsComponent>();
-		physicsComponent->init(1, 0.1, 1.0f, 1.0f, true, true);
-		RenderingComponent *renderingComponent = water->addComponent<RenderingComponent>();
-		renderingComponent->init(0.0, 0.5, 1.0, 0.5);
-		entity->getLevel()->addEntity(water);*/
+		count = 0;
+		if (on)
+		{
+			Entity *water = new Entity(); 
+			PhysicsComponent *physicsComponent = water->addComponent<PhysicsComponent>();
+			physicsComponent->initCircle(entity->getComponent<PhysicsComponent>()->getX() + x, entity->getComponent<PhysicsComponent>()->getY() + y, 0.1f, true, true);
+			physicsComponent->applyForce(x, y);
+			RenderingComponent *renderingComponent = water->addComponent<RenderingComponent>();
+			renderingComponent->init(0.0, 0.5, 1.0, 0.5);
+			entity->getLevel()->addEntity(water);
+		}
 	}
+	
+	count += dt;
 }
