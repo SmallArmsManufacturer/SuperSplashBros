@@ -78,11 +78,17 @@ void Game::keyUp(unsigned char key, int x, int y)
 
 void Game::mouseClick(int button, int state, int x, int y)
 {
+	mouseMove(x, y);
+	player->getComponent<InputComponent>()->mouseClick(button, state);
+}
+
+void Game::mouseMove(int x, int y)
+{
 	GLint viewport[4];
 	GLdouble modelview[16];
 	GLdouble projection[16];
 	GLdouble winX, winY, winZ;
-		
+	
 	glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
 	glGetDoublev( GL_PROJECTION_MATRIX, projection );
 	glGetIntegerv( GL_VIEWPORT, viewport );
@@ -96,6 +102,7 @@ void Game::mouseClick(int button, int state, int x, int y)
 			   &winX,
 			   &winY,
 			   &winZ);
+
 	
-	player->getComponent<InputComponent>()->mouseClick(button, state, x, y, winX, winY);
+	player->getComponent<InputComponent>()->mouseMove(x, y, winX, winY);
 }

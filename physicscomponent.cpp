@@ -57,8 +57,8 @@ void PhysicsComponent::initCircle(float x, float y, float radius, bool dynamic, 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &circle;
 	fixtureDef.density = 0.2;
-	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 0.3f;
+	fixtureDef.friction = 0.05f;
+	fixtureDef.restitution = 0.1f;
 	
 	body->CreateFixture(&fixtureDef);
 }

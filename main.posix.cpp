@@ -51,6 +51,11 @@ namespace
 	{
 		game->mouseClick(button, state, x, y);
 	}
+	
+	void mouseMove(int x, int y)
+	{
+		game->mouseMove(x, y);
+	}
 }
 
 int main(int argc, char **argv)
@@ -69,6 +74,7 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(keyDown);
 	glutKeyboardUpFunc(keyUp);
 	glutMouseFunc(mouseClick);
+	glutMotionFunc(mouseMove);
 	reshape(WIDTH, HEIGHT);
 	glutIgnoreKeyRepeat(1);
 	glEnable(GL_BLEND);

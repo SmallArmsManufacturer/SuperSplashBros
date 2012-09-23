@@ -42,16 +42,8 @@ void InputComponent::keyUp(unsigned char key, int x, int y)
 		direction--;
 }
 
-void InputComponent::mouseClick(int button, int state, double x, double y, double playerX, double playerY)
-{
-	double tempX = x - playerX;
-	double tempY = -(y - playerY);
-
-	double cake = sqrt(tempX * tempX + tempY * tempY) * 5;
-	tempX /= cake;
-	tempY /= cake;
-	entity->getComponent<EmitterComponent>()->setEmissionVector(tempX, tempY);
-	
+void InputComponent::mouseClick(int button, int state)
+{	
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (state == GLUT_DOWN)
@@ -59,6 +51,18 @@ void InputComponent::mouseClick(int button, int state, double x, double y, doubl
 		else
 			entity->getComponent<EmitterComponent>()->turnOff();
 	}
+}
+
+void InputComponent::mouseMove(double x, double y, double playerX, double playerY)
+{
+	double tempX = x - playerX;
+	double tempY = -(y - playerY);
+	
+	double cake = sqrt(tempX * tempX + tempY * tempY) * 20.0;
+	tempX /= cake;
+	tempY /= cake;
+	entity->getComponent<EmitterComponent>()->setEmissionVector(tempX, tempY);
+
 }
 
 void InputComponent::update(double dt)

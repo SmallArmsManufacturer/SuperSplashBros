@@ -11,8 +11,10 @@
 void EmitterComponent::init()
 {
 	on = false;
-	rate = 0.02;
+	rate = 0.005;
 	count = 0;
+	x = 0;
+	y = 0;
 }
 
 
@@ -42,10 +44,13 @@ void EmitterComponent::update(double dt)
 		count = 0;
 		if (on)
 		{
+			double randX = (double)((rand() % 100)) / 8000;
+			double randY = (double)((rand() % 100)) / 8000;
+			double randSize = (double)(rand() % 100) / 2000;
 			Entity *water = new Entity(); 
 			PhysicsComponent *physicsComponent = water->addComponent<PhysicsComponent>();
-			physicsComponent->initCircle(entity->getComponent<PhysicsComponent>()->getX() + x, entity->getComponent<PhysicsComponent>()->getY() + y, 0.1f, true, true);
-			physicsComponent->applyForce(x, y);
+			physicsComponent->initCircle(entity->getComponent<PhysicsComponent>()->getX() + x + randX, entity->getComponent<PhysicsComponent>()->getY() + y + randY, 0.05f + randSize, true, true);
+			physicsComponent->applyForce(x + randX, y + randY);
 			RenderingComponent *renderingComponent = water->addComponent<RenderingComponent>();
 			renderingComponent->init(0.0, 0.5, 1.0, 0.5);
 			entity->getLevel()->addEntity(water);
