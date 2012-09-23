@@ -30,8 +30,6 @@ void InputComponent::keyDown(unsigned char key, int x, int y)
 		direction--;
 	else if (key == 'd')
 		direction++;
-	else if (key == ' ')
-		entity->getComponent<PhysicsComponent>()->applyForce(0, -JUMP);
 }
 
 void InputComponent::keyUp(unsigned char key, int x, int y)
@@ -58,7 +56,7 @@ void InputComponent::mouseMove(double x, double y, double playerX, double player
 	double tempX = x - playerX;
 	double tempY = -(y - playerY);
 	
-	double cake = sqrt(tempX * tempX + tempY * tempY) * 20.0;
+	double cake = sqrt(tempX * tempX + tempY * tempY) * 40.0;
 	tempX /= cake;
 	tempY /= cake;
 	entity->getComponent<EmitterComponent>()->setEmissionVector(tempX, tempY);

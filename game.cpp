@@ -14,8 +14,8 @@
 Game::Game()
 {
 	// Set the background colour to light blue
-	glClearColor(0.5f, 0.6f, 1.0f, 1.0f);
-
+	glClearColor(1.0f, 0.6f, 0.0f, 1.0f);
+	
 	// Set up the modelview matrix (i.e. position the camera 10 metres along the positive Z axis)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
