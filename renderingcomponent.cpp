@@ -25,7 +25,7 @@ void RenderingComponent::render()
 		glColor4d(r, g, b, a);
 		if (physicsComponent->isCircle())
 		{
-			glScalef(physicsComponent->getWidth(), physicsComponent->getHeight(), physicsComponent->getHeight());
+			glScalef(physicsComponent->getWidth() * 2, physicsComponent->getHeight() * 2, physicsComponent->getHeight() * 2);
 			glutSolidSphere(1.0, 10, 10);
 		}
 		else

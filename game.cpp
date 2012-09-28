@@ -19,7 +19,7 @@ Game::Game()
 	// Set up the modelview matrix (i.e. position the camera 10 metres along the positive Z axis)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslated(0.0, 0.0, -10.0);
+	glTranslated(0.0, 0.0, -20.0);
 	
 	level = new Level(); 
 
