@@ -1,4 +1,5 @@
 // OpenGL
+#define _USE_MATH_DEFINES
 #ifdef __APPLE__
 	#include <GLUT/glut.h>
 	#include <OpenGL/gl.h>
@@ -11,5 +12,6 @@
 #include <Box2D/Box2D.h>
 
 // Math stuff
-#define _USE_MATH_DEFINES
-#include <cmath>
+
+//#include <cmath>
+
