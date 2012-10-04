@@ -1,7 +1,7 @@
 #pragma once
 
 #include "level.h"
-#include "EasyBMP.h"
+#include <EasyBMP.h>
 #include "entity.h"
 
 class LevelLoader{

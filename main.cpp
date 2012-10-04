@@ -1,23 +1,21 @@
-#ifndef _WIN32
-
-#include <sys/time.h>
-
+#ifdef _WIN32
+	#include <Windows.h>
+	#pragma comment( linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"" )
+#endif
 #include "common.h"
 #include "game.h"
+#include <iostream>
+
 
 namespace
 {
 	const int WIDTH = 1024, HEIGHT = 768;
 	
 	Game *game;
-	
-	double getTime()
-	{
-		timeval t;
-		gettimeofday(&t, NULL);
-		return t.tv_sec + t.tv_usec / 1000000.0;
-	}
-	
+
+	double currentTime = 0;
+	double previousTime = 0;
+
 	void reshape(int width, int height)
 	{
 		game->reshape(width, height);
@@ -25,12 +23,11 @@ namespace
 	
 	void display()
 	{
-		// Calculate the elapsed time since the last frame in seconds
-		static double prevTime = getTime();
-		double dt = getTime() - prevTime;
-		prevTime += dt;
+		currentTime = glutGet(GLUT_ELAPSED_TIME);
+		double timeInterval = currentTime - previousTime;
+		previousTime = currentTime;
 		
-		game->update(dt);
+		game->update(timeInterval/1000.0f);
 		game->render();
 		
 		glutSwapBuffers();
@@ -56,13 +53,14 @@ namespace
 	{
 		game->mouseMove(x, y);
 	}
+	
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
+
 	// Create the main window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("OpenGL demo");
 	
@@ -77,10 +75,7 @@ int main(int argc, char **argv)
 	glutMotionFunc(mouseMove);
 	reshape(WIDTH, HEIGHT);
 	glutIgnoreKeyRepeat(1);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Enter main loop
 	glutMainLoop();
 }
 
-#endif

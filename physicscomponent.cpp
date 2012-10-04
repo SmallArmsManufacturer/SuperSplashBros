@@ -5,7 +5,11 @@
 namespace
 {
 	float gravity = 9.81f;
+#ifdef __linux__
+	b2World world(b2Vec2(0.0f, -gravity), false);
+#else
 	b2World world(b2Vec2(0.0f, -gravity));
+#endif
 }
 
 void PhysicsComponent::step(double dt)
