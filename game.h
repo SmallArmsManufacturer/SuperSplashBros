@@ -4,6 +4,7 @@
 
 class Entity;
 class Level;
+class LevelLoader;
 
 class Game
 {
@@ -21,4 +22,5 @@ class Game
 	private:
 		Level *level;
 		Entity *player;
+		LevelLoader *loader;
 };

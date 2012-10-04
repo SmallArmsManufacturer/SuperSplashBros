@@ -12,7 +12,7 @@ Entity *EntityFactory::createBox(float x, float y)
 	PhysicsComponent *physicsComponent = box->addComponent<PhysicsComponent>();
 	physicsComponent->initRectangle(x, y, 1.0f, 1.0f, true, true);
 	RenderingComponent *renderingComponent = box->addComponent<RenderingComponent>();
-	renderingComponent->init(1.0, 1.0, 1.0, 1.0);
+	renderingComponent->init(0.0, 1.0, 0.0, 1.0);
 	return box;
 }
 
@@ -20,7 +20,7 @@ Entity *EntityFactory::createTile(float x, float y)
 {
 	Entity *tile = new Entity();
 	PhysicsComponent *physicsComponent = tile->addComponent<PhysicsComponent>();
-	physicsComponent->initRectangle(x, y, 5.0f, 1.0f, false, false);
+	physicsComponent->initRectangle(x, y, 1.0f, 1.0f, false, false);
 	RenderingComponent *renderingComponent = tile->addComponent<RenderingComponent>();
 	renderingComponent->init(1.0, 1.0, 1.0, 1.0);
 	return tile;

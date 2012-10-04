@@ -2,41 +2,17 @@
 #include <Windows.h>
 #include "common.h"
 #include "game.h"
+#include <iostream>
 
 namespace
 {
 	const int WIDTH = 1024, HEIGHT = 768;
 	
 	Game *game;
-	//  The number of frames
-	int frameCount = 0;
 
-	//  Number of frames per second
-	float fps = 60;
-	int currentTime = 0;
-	int previousTime = 0;
+	double currentTime = 0;
+	double previousTime = 0;
 
-	void calculateFPS(){
-		//  Increase frame count
-		frameCount++;
-
-		//  Get the number of milliseconds since glutInit called 
-		currentTime = glutGet(GLUT_ELAPSED_TIME);
-
-		//  Calculate time passed
-		int timeInterval = currentTime - previousTime;
-
-		if(timeInterval > 1000){
-			//  calculate the number of frames per second
-			fps = frameCount / (timeInterval / 1000.0f);
-			//cout << fps << endl;
-
-			//  Set time
-			previousTime = currentTime;
-			//  Reset frame count
-			frameCount = 0;
-		}
-	}
 	void reshape(int width, int height)
 	{
 		game->reshape(width, height);
@@ -44,9 +20,11 @@ namespace
 	
 	void display()
 	{
-		calculateFPS();
+		currentTime = glutGet(GLUT_ELAPSED_TIME);
+		double timeInterval = currentTime - previousTime;
+		previousTime = currentTime;
 		
-		game->update(1/fps);
+		game->update(timeInterval/1000.0f);
 		game->render();
 		
 		glutSwapBuffers();

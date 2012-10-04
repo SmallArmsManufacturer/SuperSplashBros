@@ -8,6 +8,7 @@
 #include "inputcomponent.h"
 #include "emittercomponent.h"
 #include "level.h"
+#include "levelloader.h"
 
 #include <iostream>
 
@@ -19,15 +20,19 @@ Game::Game()
 	// Set up the modelview matrix (i.e. position the camera 10 metres along the positive Z axis)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	//glTranslated(-8.26, -7.54, 20.0);
 	glTranslated(0.0, 0.0, -20.0);
-	
-	level = new Level(); 
 
+	level = new Level(); 
+	loader = new LevelLoader();
+	loader->readLevel(level);
+	player = loader->getPlayer1();
+		
 	
-	level->addEntity(EntityFactory::createBox(-1.5, 0));
-	level->addEntity(EntityFactory::createTile(0,-2));
-	player = EntityFactory::createPlayer(0,0, 0, 0, 0);
-	level->addEntity(player);
+	//level->addEntity(EntityFactory::createBox(-1.5, 0));
+	//level->addEntity(EntityFactory::createTile(0,-2));
+	//player = EntityFactory::createPlayer(0,0, 0, 0, 0);
+	//level->addEntity(player);
 }
 
 Game::~Game()
