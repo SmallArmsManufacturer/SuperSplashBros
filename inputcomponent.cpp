@@ -26,17 +26,17 @@ InputComponent::InputComponent() : direction(0)
 
 void InputComponent::keyDown(unsigned char key, int x, int y)
 {
-	if (key == 'a')
+	if (key == 'a' || key == 'A')
 		direction--;
-	else if (key == 'd')
+	else if (key == 'd' || key == 'D')
 		direction++;
 }
 
 void InputComponent::keyUp(unsigned char key, int x, int y)
 {
-	if (key == 'a')
+	if (key == 'a' || key == 'A')
 		direction++;
-	else if (key == 'd')
+	else if (key == 'd' || key == 'D')
 		direction--;
 }
 
